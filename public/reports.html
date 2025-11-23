@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Reports | REScue++</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-neutral-950 text-neutral-100 p-8">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-2xl font-bold mb-4">Reports</h1>
+    <div class="bg-neutral-900 p-4 rounded mb-4">
+      <h2 class="font-semibold mb-2">People-wise (Status) - Pie Chart</h2>
+      <canvas id="pieChart" height="150"></canvas>
+    </div>
+    <div class="bg-neutral-900 p-4 rounded mb-4">
+      <h2 class="font-semibold mb-2">Region-wise (Count) - Bar Chart</h2>
+      <canvas id="barChart" height="150"></canvas>
+    </div>
+    <div class="flex gap-2">
+      <button id="btn-download" class="px-4 py-2 bg-blue-600 rounded">Download PDF</button>
+      <button id="btn-refresh" class="px-4 py-2 bg-neutral-700 rounded">Refresh</button>
+    </div>
+  </div>
+
+<script>
+async function loadSummary() {
+  const resp = await fetch('/api/reports/summary');
+  const data = await resp.json();
+  const statusCounts = data.statusCounts || {};
+  const regionCounts = data.regionCounts || {};
+  // pie
+  const pieCtx = document.getElementById('pieChart').getContext('2d');
+  if (window._pie) window._pie.destroy();
+  window._pie = new Chart(pieCtx, {
+    type: 'pie',
+    data: {
+      labels: Object.keys(statusCounts),
+      datasets: [{ data: Object.values(statusCounts) }]
+    }
+  });
+  // bar
+  const barCtx = document.getElementById('barChart').getContext('2d');
+  if (window._bar) window._bar.destroy();
+  window._bar = new Chart(barCtx, {
+    type: 'bar',
+    data: {
+      labels: Object.keys(regionCounts),
+      datasets: [{ label: 'People', data: Object.values(regionCounts) }]
+    },
+    options: { scales: { y: { beginAtZero: true } } }
+  });
+}
+
+document.getElementById('btn-download')?.addEventListener('click', async () => {
+  // simple PDF: capture charts as images and add to pdf
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  const pie = document.getElementById('pieChart').toDataURL('image/png',1.0);
+  const bar = document.getElementById('barChart').toDataURL('image/png',1.0);
+  doc.text('REScue++ Report', 10, 10);
+  doc.addImage(pie, 'PNG', 10, 20, 180, 80);
+  doc.addPage();
+  doc.addImage(bar, 'PNG', 10, 20, 180, 80);
+  doc.save('rescue_report.pdf');
+});
+
+document.getElementById('btn-refresh')?.addEventListener('click', loadSummary);
+
+window.addEventListener('DOMContentLoaded', loadSummary);
+</script>
+</body>
+</html>

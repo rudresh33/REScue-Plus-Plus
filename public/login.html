@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | REScue++</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        @keyframes slideInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+        .animate-slide-left { animation: slideInLeft 0.8s ease-out; }
+        .glass-effect { background: rgba(28, 25, 23, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(120, 113, 108, 0.2); }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-neutral-900 to-slate-950 h-screen flex items-center justify-center p-4">
+
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-20 right-1/4 w-72 h-72 bg-neutral-700/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 left-1/4 w-72 h-72 bg-neutral-600/5 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="glass-effect w-full max-w-md rounded-2xl shadow-2xl p-8 relative z-10 animate-slide-left">
+        <div class="text-center mb-8">
+            <div class="mx-auto w-16 h-16 bg-gradient-to-br from-neutral-700 to-neutral-800 rounded-full flex items-center justify-center mb-4 shadow-lg">
+                <i class="fa-solid fa-user-lock text-2xl text-neutral-300"></i>
+            </div>
+            <h2 class="text-3xl font-bold text-neutral-100">Access Portal</h2>
+            <p class="text-sm text-neutral-500 mt-2">Authenticate to enter the command center</p>
+        </div>
+
+        <form id="login-form" class="space-y-5">
+            <div>
+                <label class="block text-xs font-bold text-neutral-300 uppercase tracking-wide mb-2">Select Role</label>
+                <div class="relative">
+                    <select id="role" class="block w-full pl-3 pr-10 py-3 bg-neutral-800/50 border border-neutral-700 rounded-lg focus:ring-2 focus:ring-neutral-500 focus:border-neutral-600 outline-none appearance-none text-neutral-200 hover:border-neutral-600 transition-colors">
+                        <option value="admin">Administrator</option>
+                        <option value="rescue">Rescue Team</option>
+                        <option value="ngo">NGO Volunteer</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-neutral-500">
+                        <i class="fa-solid fa-chevron-down text-xs"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-neutral-300 uppercase tracking-wide mb-2">Password</label>
+                <div class="relative">
+                    <input type="password" id="password" class="block w-full pl-10 pr-3 py-3 bg-neutral-800/50 border border-neutral-700 rounded-lg focus:ring-2 focus:ring-neutral-500 focus:border-neutral-600 outline-none text-neutral-200 placeholder-neutral-600 hover:border-neutral-600 transition-colors" placeholder="••••••••">
+                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-3 text-neutral-600">
+                        <i class="fa-solid fa-key text-sm"></i>
+                    </div>
+                </div>
+            </div>
+
+            <button
+  type="submit"
+  class="w-full py-3.5 rounded-lg font-bold
+         text-neutral-50
+         bg-gradient-to-r from-red-600 to-red-500
+         hover:from-red-500 hover:to-red-400
+         border border-red-700
+         shadow-lg shadow-red-900/40
+         transition-all transform
+         hover:scale-[1.02] hover:shadow-red-900/60">
+  <i class="fa-solid fa-right-to-bracket mr-2 text-xs opacity-80"></i>
+  Sign In
+</button>
+
+        </form>
+
+        <div id="error-msg" class="mt-6 p-4 bg-red-950/40 border border-red-800/50 rounded-lg flex items-start gap-3 hidden animate-pulse">
+            <i class="fa-solid fa-circle-exclamation text-red-600 mt-0.5 flex-shrink-0"></i>
+            <p class="text-xs text-red-300 font-medium">Invalid Credentials. Hint: Password is <strong>admin</strong></p>
+        </div>
+        
+        <div class="mt-8 text-center">
+            <a href="index.html" class="text-xs text-neutral-500 hover:text-neutral-400 transition-colors flex items-center justify-center gap-1">
+                <i class="fa-solid fa-arrow-left"></i> Back to Home
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const pass = document.getElementById('password').value;
+            if(pass === 'admin') {
+                localStorage.setItem('userRole', document.getElementById('role').value);
+                window.location.href = 'dashboard.html';
+            } else {
+                document.getElementById('error-msg').classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
