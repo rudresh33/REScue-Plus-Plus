@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Resources | REScue++</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="bg-slate-900 text-neutral-100 min-h-screen pt-16">
+  <!-- NAVBAR (fixed) -->
+  <nav class="bg-neutral-950/90 backdrop-blur-lg text-neutral-100 shadow-xl fixed top-0 left-0 w-full z-50 border-b border-neutral-800">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 bg-gradient-to-br from-red-700 to-red-800 rounded-lg flex items-center justify-center">
+            <i class="fa-solid fa-kit-medical text-neutral-100 text-sm"></i>
+          </div>
+          <span class="font-bold text-lg tracking-tight">REScue<span class="text-red-600">++</span></span>
+        </div>
+
+        <div class="flex space-x-1">
+          <a href="dashboard.html" class="px-4 py-2 hover:bg-neutral-800 rounded-lg text-sm font-medium text-neutral-400 transition">Dashboard</a>
+          <a href="civilians.html" class="px-4 py-2 hover:bg-neutral-800 rounded-lg text-sm font-medium text-neutral-400 transition">Civilians</a>
+          <a href="shelters.html" class="px-4 py-2 hover:bg-neutral-800 rounded-lg text-sm font-medium text-neutral-400 transition">Shelters</a>
+          <a href="resources.html" class="px-4 py-2 bg-neutral-800 rounded-lg text-sm font-medium text-neutral-200 border border-neutral-700 transition">Resources</a>
+          <a href="index.html" class="ml-4 px-4 py-2 bg-red-900/80 hover:bg-red-900 rounded-lg text-sm font-medium transition shadow-lg flex items-center gap-2 text-neutral-100">
+            <i class="fa-solid fa-power-off"></i> Logout
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="max-w-6xl mx-auto p-6">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold">Resources Inventory</h1>
+
+      <div class="flex items-center gap-3">
+        <input id="res-search" placeholder="Search resources..." class="px-3 py-2 rounded bg-neutral-800 border border-neutral-700 text-neutral-200" />
+        <button id="open-add" class="bg-emerald-600 px-4 py-2 rounded hover:bg-emerald-500 flex items-center gap-2">
+          <i class="fa-solid fa-plus"></i>
+          <span>Add Resource</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="bg-neutral-800 rounded p-4">
+      <!-- responsive table wrapper -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm min-w-[720px]">
+          <thead class="text-neutral-400">
+            <tr>
+              <th class="text-left p-2">ID</th>
+              <th class="text-left p-2">Type</th>
+              <th class="text-left p-2">Qty</th>
+              <th class="text-left p-2">Unit</th>
+              <th class="text-left p-2">Location</th>
+              <th class="text-left p-2">Priority</th>
+              <th class="text-left p-2">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="resources-body">
+            <!-- rows will be injected by /js/resources.js -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- ADD MODAL -->
+  <div id="add-modal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
+    <div class="bg-neutral-900 rounded p-6 w-full max-w-md border border-neutral-700">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-bold">Add Resource</h2>
+        <button id="close-add" class="text-neutral-400 hover:text-neutral-200" aria-label="Close add resource">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="add-resource-form" class="space-y-3">
+        <div>
+          <label for="r-type" class="text-xs text-neutral-400">Type</label>
+          <input id="r-type" required class="w-full p-2 bg-neutral-800 border border-neutral-700 rounded text-neutral-200" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label for="r-qty" class="text-xs text-neutral-400">Quantity</label>
+            <input id="r-qty" type="number" required class="w-full p-2 bg-neutral-800 border border-neutral-700 rounded text-neutral-200" />
+          </div>
+          <div>
+            <label for="r-unit" class="text-xs text-neutral-400">Unit</label>
+            <input id="r-unit" class="w-full p-2 bg-neutral-800 border border-neutral-700 rounded text-neutral-200" />
+          </div>
+        </div>
+
+        <div>
+          <label for="r-location" class="text-xs text-neutral-400">Location</label>
+          <input id="r-location" class="w-full p-2 bg-neutral-800 border border-neutral-700 rounded text-neutral-200" placeholder="All / Taluka name" />
+        </div>
+
+        <div>
+          <label for="r-priority" class="text-xs text-neutral-400">Priority</label>
+          <select id="r-priority" class="w-full p-2 bg-neutral-800 border border-neutral-700 rounded text-neutral-200">
+            <option>High</option>
+            <option>Medium</option>
+            <option>Low</option>
+          </select>
+        </div>
+
+        <div class="flex justify-end gap-2 mt-2">
+          <button type="button" id="cancel-add" class="px-4 py-2 rounded bg-neutral-700 hover:bg-neutral-600">Cancel</button>
+          <button type="submit" class="px-4 py-2 rounded bg-emerald-600 hover:bg-emerald-500 text-white">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/resources.js"></script>
+</body>
+</html>

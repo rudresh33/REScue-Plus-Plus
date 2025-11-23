@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shelters | REScue++</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-slate-900 via-neutral-900 to-slate-950 min-h-screen pt-20">
+
+    <!-- NAVBAR -->
+    <nav class="bg-neutral-950/90 backdrop-blur-lg text-neutral-100 shadow-xl fixed top-0 left-0 w-full z-50 border-b border-neutral-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+
+                <!-- BRAND -->
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 bg-gradient-to-br from-red-700 to-red-800 rounded-lg flex items-center justify-center">
+                        <i class="fa-solid fa-kit-medical text-neutral-100 text-sm"></i>
+                    </div>
+                    <span class="font-bold text-lg tracking-tight">REScue<span class="text-red-600">++</span></span>
+                </div>
+
+                <!-- NAV LINKS -->
+                <div class="flex space-x-1">
+                    <a href="dashboard.html" class="px-4 py-2 hover:bg-neutral-800 rounded-lg text-sm font-medium text-neutral-400 transition">Dashboard</a>
+                    <a href="civilians.html" class="px-4 py-2 hover:bg-neutral-800 rounded-lg text-sm font-medium text-neutral-400 transition">Civilians</a>
+                    <a href="shelters.html" class="px-4 py-2 bg-neutral-800 rounded-lg text-sm font-medium text-neutral-200 border border-neutral-700 transition">Shelters</a>
+                    <a href="resources.html" class="px-4 py-2 hover:bg-neutral-800 rounded-lg text-sm font-medium text-neutral-400 transition">Resources</a>
+
+                    <a href="index.html" class="ml-4 px-4 py-2 bg-red-900/80 hover:bg-red-900 rounded-lg text-sm font-medium transition shadow-lg flex items-center gap-2 text-neutral-100">
+                        <i class="fa-solid fa-power-off"></i> Logout
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- HEADER -->
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <div class="mb-8 pb-4 border-b border-neutral-800 flex items-end justify-between">
+            <div>
+                <h1 class="text-3xl font-bold text-neutral-50">Shelter Network</h1>
+                <p class="text-sm text-neutral-400 mt-2">Real-time occupancy through Smart Triage</p>
+            </div>
+
+            <button 
+                onclick="document.getElementById('add-shelter-modal').classList.remove('hidden')"
+                class="bg-emerald-700/80 hover:bg-emerald-700 text-neutral-100 px-5 py-2.5 rounded-lg 
+                       shadow-md hover:shadow-lg transition-all flex items-center gap-2 text-sm font-bold 
+                       border border-emerald-600/50">
+                <i class="fa-solid fa-plus"></i> New Shelter
+            </button>
+        </div>
+
+        <!-- SHELTER GRID -->
+        <div id="shelter-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <p class="text-neutral-500 col-span-3 text-center py-10">
+                <i class="fa-solid fa-circle-notch fa-spin"></i> Loading shelters...
+            </p>
+        </div>
+    </div>
+
+    <!-- ADD SHELTER MODAL -->
+    <div id="add-shelter-modal" class="fixed inset-0 bg-neutral-900/70 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-neutral-900 rounded-2xl shadow-2xl p-8 w-full max-w-md border border-neutral-700">
+            
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-neutral-100">Deploy New Shelter</h3>
+                <button 
+                    onclick="document.getElementById('add-shelter-modal').classList.add('hidden')" 
+                    class="text-neutral-400 hover:text-neutral-200">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <form id="add-shelter-form" class="space-y-4">
+
+                <div>
+                    <label class="block text-xs font-bold text-neutral-400 uppercase mb-1">Facility Name</label>
+                    <input id="s-name" type="text" class="w-full p-3 bg-neutral-800 text-neutral-200 border border-neutral-700 rounded-lg outline-none" required>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-neutral-400 uppercase mb-1">Capacity</label>
+                    <input id="s-capacity" type="number" class="w-full p-3 bg-neutral-800 text-neutral-200 border border-neutral-700 rounded-lg outline-none" required>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-neutral-400 uppercase mb-1">Location (Taluka)</label>
+                    <select id="s-location" class="w-full p-3 bg-neutral-800 text-neutral-200 border border-neutral-700 rounded-lg outline-none">
+                        <option>Pernem</option>
+                        <option>Bardez</option>
+                        <option>Bicholim</option>
+                        <option>Tiswadi</option>
+                        <option>Sattari</option>
+                        <option>Ponda</option>
+                        <option>Mormugao</option>
+                        <option>Salcete</option>
+                        <option>Quepem</option>
+                        <option>Sanguem</option>
+                        <option>Canacona</option>
+                        <option>Dharbandora</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-neutral-400 uppercase mb-1">Facility Type</label>
+                    <select id="s-category" class="w-full p-3 bg-neutral-800 text-neutral-200 border border-neutral-700 rounded-lg outline-none">
+                        <option value="General">General Shelter</option>
+                        <option value="Hospital">Hospital</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 mt-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold shadow-lg transition-all">
+                    Deploy Facility
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- SCRIPT: Load & Add Shelters -->
+    <script src="js/shelters.js"></script>
+
+</body>
+</html>
