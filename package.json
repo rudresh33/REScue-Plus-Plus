@@ -1,0 +1,16 @@
+{
+  "name": "rescue-plus-plus",
+  "version": "1.0.0",
+  "description": "Disaster Response System",
+  "scripts": {
+    "setup": "npm install && cd server && npm install && cd ../backend/cpp/addon && npm install && node-gyp rebuild",
+    "start": "node server/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "csv-parser": "^3.2.0",
+    "csv-writer": "^1.6.0",
+    "express": "^4.18.2",
+    "papaparse": "^5.5.3"
+  }
+}

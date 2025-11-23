@@ -1,0 +1,27 @@
+# Dependency directories (Do not upload these)
+node_modules/
+backend/cpp/node_modules/
+server/node_modules/
+
+# C++ Build Artifacts and Object files
+backend/cpp/addon/build/
+backend/cpp/addon/Release/
+*.o
+*.obj
+*.node
+*.tlog
+*.log
+.waf*
+.lock-wscript
+
+# Generated Reports (Optional - keep if you want history, ignore if they are temp)
+server/data/reports/*.txt
+server/data/simulation_report.txt
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# IDE/Editor folders (Optional)
+.vscode/
+.idea/
