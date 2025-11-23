@@ -1,0 +1,79 @@
+ID,Name,Capacity,Location,Category,Occupancy
+1,Pernem Relief Shelter #1,120,Pernem,General,12
+2,Pernem Relief Shelter #2,95,Pernem,General,0
+3,Bicholim Relief Shelter #1,140,Bicholim,General,7
+4,Bicholim Relief Shelter #2,110,Bicholim,General,0
+5,Bicholim Primary Health Centre,150,Bicholim,Hospital,5
+6,Bardez Relief Shelter #1,130,Bardez,General,6
+7,Bardez Relief Shelter #2,160,Bardez,General,0
+8,Bardez Community Health Centre,140,Bardez,Hospital,9
+9,Tiswadi Relief Shelter #1,150,Tiswadi,General,3
+10,Tiswadi Relief Shelter #2,100,Tiswadi,General,0
+11,Panaji District Hospital,200,Ponda,Hospital,5
+12,Ponda Relief Shelter #1,175,Ponda,General,8
+13,Ponda Relief Shelter #2,130,Ponda,General,0
+14,Ponda Community Health Centre,180,Ponda,Hospital,0
+15,Sattari Relief Shelter #1,115,Sattari,General,6
+16,Sattari Relief Shelter #2,140,Sattari,General,0
+17,Sattari Rural Hospital,170,Sattari,Hospital,2
+18,Mormugao Relief Shelter #1,190,Mormugao,General,2
+19,Mormugao Relief Shelter #2,160,Mormugao,General,0
+20,Mormugao Community Health Centre,200,Mormugao,Hospital,3
+21,Salcete Relief Shelter #1,150,Salcete,General,5
+22,Salcete Relief Shelter #2,130,Salcete,General,0
+23,Salcete District Hospital,220,Salcete,Hospital,3
+24,Quepem Relief Shelter #1,140,Quepem,General,2
+25,Quepem Relief Shelter #2,160,Quepem,General,0
+26,Quepem Sub-District Hospital,180,Quepem,Hospital,4
+27,Sanguem Relief Shelter #1,150,Sanguem,General,4
+28,Sanguem Relief Shelter #2,120,Sanguem,General,0
+29,Sanguem Community Health Centre,160,Sanguem,Hospital,3
+30,Canacona Relief Shelter #1,130,Canacona,General,3
+31,Canacona Relief Shelter #2,110,Canacona,General,0
+32,Canacona Community Health Centre,170,Canacona,Hospital,2
+33,Pernem Relief Shelter #3,145,Pernem,General,0
+34,Pernem Relief Shelter #4,160,Pernem,General,0
+35,Pernem Rural Hospital,180,Pernem,Hospital,3
+36,Bicholim Relief Shelter #3,150,Bicholim,General,0
+37,Bicholim Relief Shelter #4,170,Bicholim,General,0
+38,Bicholim Women & Child Hospital,190,Bicholim,Hospital,0
+39,Bardez Relief Shelter #3,150,Bardez,General,0
+40,Bardez Relief Shelter #4,145,Bardez,General,0
+41,Bardez Sub-District Hospital,210,Bardez,Hospital,0
+42,Tiswadi Relief Shelter #3,160,Tiswadi,Tiswadi,0
+43,Tiswadi Relief Shelter #4,140,Tiswadi,General,0
+44,Goa Medical College,300,Tiswadi,Hospital,2
+45,Ponda Relief Shelter #3,150,Ponda,General,0
+46,Ponda Relief Shelter #4,140,Ponda,General,0
+47,Ponda Sub-District Hospital,210,Ponda,Hospital,0
+48,Salcete Relief Shelter #3,170,Salcete,General,0
+49,Salcete Relief Shelter #4,160,Salcete,General,0
+50,Salcete Women & Child Hospital,230,Salcete,Hospital,0
+51,Quepem Relief Shelter #3,150,Quepem,General,0
+52,Dharbandora Relief Shelter #1,140,Dharbandora,General,6
+53,Dharbandora Rural Hospital,190,Dharbandora,Hospital,2
+54,Cancona Relief Shelter #4,300,Canacona,General,0
+1,Pernem Relief Shelter #1,120,Pernem,General,0
+3,Bicholim Relief Shelter #1,140,Bicholim,General,0
+5,Bicholim Primary Health Centre,150,Bicholim,Hospital,0
+6,Bardez Relief Shelter #1,130,Bardez,General,0
+8,Bardez Community Health Centre,140,Bardez,Hospital,0
+9,Tiswadi Relief Shelter #1,150,Tiswadi,General,0
+11,Panaji District Hospital,200,Ponda,Hospital,0
+12,Ponda Relief Shelter #1,175,Ponda,General,0
+15,Sattari Relief Shelter #1,115,Sattari,General,0
+17,Sattari Rural Hospital,170,Sattari,Hospital,0
+18,Mormugao Relief Shelter #1,190,Mormugao,General,0
+20,Mormugao Community Health Centre,200,Mormugao,Hospital,0
+21,Salcete Relief Shelter #1,150,Salcete,General,0
+23,Salcete District Hospital,220,Salcete,Hospital,0
+24,Quepem Relief Shelter #1,140,Quepem,General,0
+26,Quepem Sub-District Hospital,180,Quepem,Hospital,0
+27,Sanguem Relief Shelter #1,150,Sanguem,General,0
+29,Sanguem Community Health Centre,160,Sanguem,Hospital,0
+30,Canacona Relief Shelter #1,130,Canacona,General,0
+32,Canacona Community Health Centre,170,Canacona,Hospital,0
+35,Pernem Rural Hospital,180,Pernem,Hospital,0
+44,Goa Medical College,300,Tiswadi,Hospital,0
+52,Dharbandora Relief Shelter #1,140,Dharbandora,General,0
+53,Dharbandora Rural Hospital,190,Dharbandora,Hospital,0

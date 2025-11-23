@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - REScue++</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-hands-helping text-red-600 text-3xl mr-3"></i>
+                    <span class="text-2xl font-bold text-gray-800">REScue++</span>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="index.html" class="text-gray-700 hover:text-red-600 transition">Home</a>
+                    <a href="dashboard.html" class="text-gray-700 hover:text-red-600 transition">Dashboard</a>
+                    <a href="civilians.html" class="text-gray-700 hover:text-red-600 transition">Civilians</a>
+                    <a href="shelters.html" class="text-gray-700 hover:text-red-600 transition">Shelters</a>
+                    <a href="resources.html" class="text-red-600 font-semibold">Resources</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="container mx-auto px-6 py-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Resource Management</h1>
+
+        <div class="grid md:grid-cols-2 gap-6" id="resources-grid">
+            <!-- Resources will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+
+        async function loadResources() {
+            try {
+                const response = await fetch(`${API_URL}/resources/allocate`);
+                const resources = await response.json();
+                displayResources(resources);
+            } catch (error) {
+                console.error('Error loading resources:', error);
+            }
+        }
+
+        function displayResources(resources) {
+            const grid = document.getElementById('resources-grid');
+            grid.innerHTML = '';
+
+            const icons = {
+                'Food Packets': 'fa-utensils',
+                'Water Bottles': 'fa-tint',
+                'Medical Kits': 'fa-medkit',
+                'Blankets': 'fa-bed'
+            };
+
+            resources.forEach(resource => {
+                const percentUsed = (resource.allocated / resource.totalQuantity * 100).toFixed(1);
+                const percentAvailable = 100 - percentUsed;
+                
+                let statusColor = 'text-green-600';
+                let barColor = 'bg-green-500';
+                if (percentUsed > 75) {
+                    statusColor = 'text-red-600';
+                    barColor = 'bg-red-500';
+                } else if (percentUsed > 50) {
+                    statusColor = 'text-yellow-600';
+                    barColor = 'bg-yellow-500';
+                }
+
+                grid.innerHTML += `
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <div class="flex items-start justify-between mb-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800">${resource.name}</h3>
+                                <p class="text-gray-600">${resource.unit}</p>
+                            </div>
+                            <i class="fas ${icons[resource.name] || 'fa-box'} ${statusColor} text-3xl"></i>
+                        </div>
+                        
+                        <div class="grid grid-cols-3 gap-4 mb-4">
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-blue-600">${resource.totalQuantity}</p>
+                                <p class="text-xs text-gray-600">Total</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-green-600">${resource.available}</p>
+                                <p class="text-xs text-gray-600">Available</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-orange-600">${resource.allocated}</p>
+                                <p class="text-xs text-gray-600">Allocated</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-sm font-medium text-gray-700">Available</span>
+                                <span class="text-sm ${statusColor}">${percentAvailable.toFixed(1)}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="${barColor} h-3 rounded-full transition-all" style="width: ${percentAvailable}%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex space-x-2">
+                            <button onclick="allocateResource('${resource.name}')" 
+                                    class="flex-1 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+                                <i class="fas fa-hand-holding mr-2"></i>Allocate
+                            </button>
+                            <button onclick="restockResource('${resource.name}')" 
+                                    class="flex-1 bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">
+                                <i class="fas fa-plus mr-2"></i>Restock
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        async function allocateResource(resourceName) {
+            const quantity = prompt(`How many units of ${resourceName} to allocate?`);
+            if (quantity && !isNaN(quantity) && quantity > 0) {
+                try {
+                    const response = await fetch(`${API_URL}/resources/allocate`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ resourceName, quantity: parseInt(quantity) })
+                    });
+                    
+                    if (response.ok) {
+                        alert('Resource allocated successfully!');
+                        loadResources();
+                    } else {
+                        alert('Failed to allocate resource');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+        }
+
+        async function restockResource(resourceName) {
+            const quantity = prompt(`How many units of ${resourceName} to restock?`);
+            if (quantity && !isNaN(quantity) && quantity > 0) {
+                try {
+                    const response = await fetch(`${API_URL}/resources/restock`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ resourceName, quantity: parseInt(quantity) })
+                    });
+                    
+                    if (response.ok) {
+                        alert('Resource restocked successfully!');
+                        loadResources();
+                    } else {
+                        alert('Failed to restock resource');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadResources);
+    </script>
+</body>
+</html>
+
