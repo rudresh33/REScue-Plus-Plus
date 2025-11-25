@@ -46,7 +46,7 @@ The C++ backend is exposed to the Node.js server via a Node-Addon-API bridge so 
 
 ### Build & Run
 1. Clone the repository:
-   git clone https://github.com/YourUsername/REScue-Plus-Plus.git
+   git clone https://github.com/rudresh33/REScue-Plus-Plus.git
    cd REScue-Plus-Plus
 
 2. Install Node dependencies:
